@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "cpe",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/TYokono/workspace/cpe/amplify/backend/api/cpe/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AWS_IAM"
+    }
+  }
+}
