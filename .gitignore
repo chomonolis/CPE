@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 team-provider-info.json
+amplify/backend/api/cpe/custom-roles.json
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
