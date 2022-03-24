@@ -1,11 +1,14 @@
+import { Container } from '@mui/material';
 import Team from './component/Team';
 import UserEdit from './component/User/UserEdit';
 
 function App() {
   return (
     <>
-      <Team />
-      <UserEdit createFlag />
+      <Container>
+        <Team />
+        <UserEdit createFlag />
+      </Container>
     </>
   );
 }
