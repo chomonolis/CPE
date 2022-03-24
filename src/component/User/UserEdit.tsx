@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { API, graphqlOperation } from 'aws-amplify';
 
@@ -10,12 +11,14 @@ import {
   RadioGroup,
   Radio,
   Box,
+  Stack,
 } from '@mui/material';
 
 import { CreateUserInput, UserType } from '../../API';
 import { createUser } from '../../graphql/mutations';
 
 import registerMui from '../../utils/registerMui';
+import CustomizedSnackbar from '../CustomizedSnackbar';
 
 type FormInputs = {
   name: string;
@@ -27,6 +30,8 @@ type Props = {
 };
 
 const UserEdit = (props: Props) => {
+  const [update, setUpdate] = useState<boolean>(false);
+  const [complete, setComplete] = useState<boolean>(false);
   const { register, handleSubmit, control } = useForm<FormInputs>({
     defaultValues: {
       name: '',
@@ -36,8 +41,11 @@ const UserEdit = (props: Props) => {
 
   const onSubmit = async (data: FormInputs) => {
     try {
+      setUpdate(true);
       if (props.createFlag) {
         await API.graphql(graphqlOperation(createUser, { input: data }));
+        setUpdate(false);
+        setComplete(true);
       }
     } catch (err) {
       console.error(err);
@@ -101,6 +109,20 @@ const UserEdit = (props: Props) => {
             <Button variant="contained" color="primary" type="submit">
               Submit
             </Button>
+            <Stack spacing={2} sx={{ width: '100%' }}>
+              <CustomizedSnackbar
+                msg="更新しています"
+                serverity="info"
+                open={update}
+                setOpen={setUpdate}
+              />
+              <CustomizedSnackbar
+                msg="更新が正常に完了しました"
+                serverity="success"
+                open={complete}
+                setOpen={setComplete}
+              />
+            </Stack>
           </Box>
         </form>
       )}
