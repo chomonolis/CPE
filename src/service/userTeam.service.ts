@@ -14,7 +14,9 @@ const UserTeamService = {
 };
 
 export type UserTeamServiceReturnType = {
-  getTeamRT: PromiseType<ReturnType<typeof UserTeamService.createUserTeam>>;
+  createUserTeamRT: PromiseType<
+    ReturnType<typeof UserTeamService.createUserTeam>
+  >;
 };
 
 export default UserTeamService;
