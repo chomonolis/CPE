@@ -20,16 +20,6 @@ const useUserTeam = () => {
 };
 
 export type UseUserTeamReturnType = {
-  createUserTeam: (
-    userId: string,
-    teamId: string,
-    userPoint?: number
-  ) => Promise<
-    Exclude<
-      GraphQLResult<CreateUserTeamMutation>['data'],
-      undefined
-    >['createUserTeam']
-  >;
   createUserTeamRT: Exclude<
     GraphQLResult<CreateUserTeamMutation>['data'],
     undefined
