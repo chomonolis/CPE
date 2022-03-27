@@ -1,8 +1,8 @@
-import { GraphQLResult } from '@aws-amplify/api';
 import { useCallback } from 'react';
 
-import { CreateUserTeamMutation } from '../API';
-import UserTeamService from '../service/userTeam.service';
+import UserTeamService, {
+  UserTeamServiceReturnType,
+} from '../service/userTeam.service';
 
 const useUserTeam = () => {
   const createUserTeam = useCallback(
@@ -21,7 +21,7 @@ const useUserTeam = () => {
 
 export type UseUserTeamReturnType = {
   createUserTeamRT: Exclude<
-    GraphQLResult<CreateUserTeamMutation>['data'],
+    UserTeamServiceReturnType['createUserTeamRT']['data'],
     undefined
   >['createUserTeam'];
 };
