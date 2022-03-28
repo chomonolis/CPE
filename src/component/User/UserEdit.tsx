@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { API, graphqlOperation } from 'aws-amplify';
 
 import {
   TextField,
@@ -15,8 +14,8 @@ import {
 } from '@mui/material';
 
 import { CreateUserInput, UserType } from '../../API';
-import { createUser } from '../../graphql/mutations';
 
+import useUser from '../../hook/User.hook';
 import registerMui from '../../utils/registerMui';
 import CustomizedSnackbar from '../CustomizedSnackbar';
 
@@ -38,12 +37,13 @@ const UserEdit = (props: Props) => {
       type: UserType.EMPTY,
     },
   });
+  const { createUser } = useUser();
 
   const onSubmit = async (data: FormInputs) => {
     try {
       setUpdate(true);
       if (props.createFlag) {
-        await API.graphql(graphqlOperation(createUser, { input: data }));
+        await createUser(data.name, data.type);
         setUpdate(false);
         setComplete(true);
       }
