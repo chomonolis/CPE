@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
+import useUserTeam from '../../hook/UserTeam.hook';
 import UserEdit from '../User/UserEdit';
 
 type Props = {
@@ -12,8 +13,25 @@ const initialUserId = '';
 const UserTeamEdit = (props: Props) => {
   const { teamId, id } = props;
   const [createdUserId, setCreatedUserId] = useState<string>(initialUserId);
+  const { createUserTeam } = useUserTeam();
+
+  // idがある -> createではない
   if (id) return <></>;
-  return <UserEdit createFlag />;
+
+  useEffect(() => {
+    if (createdUserId === initialUserId) return;
+    (async () => {
+      try {
+        const r = await createUserTeam(createdUserId, teamId, 0);
+        if (r) {
+          setCreatedUserId(initialUserId);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, [createdUserId]);
+  return <UserEdit createFlag setCreatedUserId={setCreatedUserId} />;
 };
 
 export default UserTeamEdit;
