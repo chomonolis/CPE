@@ -27,7 +27,7 @@ type FormInputs = {
 
 type Props = {
   createFlag: boolean;
-  submitFunction?: () => Promise<void>;
+  setCreatedUserId?: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const UserEdit = (props: Props) => {
@@ -44,9 +44,10 @@ const UserEdit = (props: Props) => {
     try {
       setUpdate(true);
       if (props.createFlag) {
-        await API.graphql(graphqlOperation(createUser, { input: data }));
-        if (props.submitFunction) {
-          await props.submitFunction();
+        const r = await API.graphql(
+          graphqlOperation(createUser, { input: data })
+        );
+        if (props.setCreatedUserId) {
         }
         setUpdate(false);
         setComplete(true);
