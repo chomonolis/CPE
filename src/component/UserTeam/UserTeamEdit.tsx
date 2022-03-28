@@ -15,9 +15,6 @@ const UserTeamEdit = (props: Props) => {
   const [createdUserId, setCreatedUserId] = useState<string>(initialUserId);
   const { createUserTeam } = useUserTeam();
 
-  // idがある -> createではない
-  if (id) return <></>;
-
   useEffect(() => {
     if (createdUserId === initialUserId) return;
     (async () => {
@@ -30,7 +27,10 @@ const UserTeamEdit = (props: Props) => {
         console.error(err);
       }
     })();
-  }, [createdUserId]);
+  }, [createdUserId, createUserTeam, teamId]);
+
+  // idがある -> createではない
+  if (id) return <></>;
   return <UserEdit createFlag setCreatedUserId={setCreatedUserId} />;
 };
 
