@@ -1,13 +1,14 @@
 import { Container } from '@mui/material';
 import Team from './component/Team';
-import UserEdit from './component/User/UserEdit';
+import UserTeamEdit from './component/UserTeam/UserTeamEdit';
+import Config from './config';
 
 function App() {
   return (
     <>
       <Container>
         <Team />
-        <UserEdit createFlag />
+        <UserTeamEdit teamId={Config.RBHId} />
       </Container>
     </>
   );

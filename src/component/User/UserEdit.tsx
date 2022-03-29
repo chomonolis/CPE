@@ -26,6 +26,7 @@ type FormInputs = {
 
 type Props = {
   createFlag: boolean;
+  setCreatedUserId?: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const UserEdit = (props: Props) => {
@@ -43,7 +44,10 @@ const UserEdit = (props: Props) => {
     try {
       setUpdate(true);
       if (props.createFlag) {
-        await createUser(data.name, data.type);
+        const r = await createUser(data.name, data.type);
+        if (r && props.setCreatedUserId) {
+          props.setCreatedUserId(r.id);
+        }
         setUpdate(false);
         setComplete(true);
       }
