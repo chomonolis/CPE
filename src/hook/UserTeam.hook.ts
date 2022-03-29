@@ -16,7 +16,12 @@ const useUserTeam = () => {
     },
     []
   );
-  return { createUserTeam };
+
+  const getUserTeam = useCallback(async (id: string) => {
+    return await UserTeamService.getUserTeam(id);
+  }, []);
+
+  return { createUserTeam, getUserTeam };
 };
 
 export type UseUserTeamReturnType = {
@@ -24,6 +29,7 @@ export type UseUserTeamReturnType = {
     UserTeamServiceReturnType['createUserTeamRT']['data'],
     undefined
   >['createUserTeam'];
+  getUserTeamRT: UserTeamServiceReturnType['getUserTeamRT'];
 };
 
 export default useUserTeam;
