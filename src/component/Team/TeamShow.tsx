@@ -18,8 +18,12 @@ const TeamShow = (props: Props) => {
 
   useEffect(() => {
     (async () => {
-      const r = await getTeam(teamId);
-      setTeam(r);
+      try {
+        const r = await getTeam(teamId);
+        setTeam(r);
+      } catch (e) {
+        console.error(e);
+      }
     })();
   }, [getTeam, teamId]);
 
@@ -31,7 +35,7 @@ const TeamShow = (props: Props) => {
             (item): item is Exclude<typeof item, null> => item !== null
           );
           const pr_arr = arr.map((item) => {
-            return getUserTeam(item?.id);
+            return getUserTeam(item.id);
           });
           const add = await Promise.all(pr_arr);
           setUserTeams(add);
