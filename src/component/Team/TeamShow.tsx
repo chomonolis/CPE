@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { List, ListItem } from '@mui/material';
 
 import useTeam, { UseTeamReturnType } from '../../hook/Team.hook';
 import useUserTeam, { UseUserTeamReturnType } from '../../hook/UserTeam.hook';
@@ -48,14 +49,15 @@ const TeamShow = (props: Props) => {
 
   return (
     <>
-      {userTeams.map((userTeam, idx) => {
-        return (
-          <div key={idx}>
-            {userTeam?.user?.name}
-            <br />
-          </div>
-        );
-      })}
+      <List>
+        {userTeams.map((userTeam, idx) => {
+          return (
+            <ListItem key={idx} sx={{ border: 'solid' }}>
+              {userTeam?.user?.name}
+            </ListItem>
+          );
+        })}
+      </List>
     </>
   );
 };
