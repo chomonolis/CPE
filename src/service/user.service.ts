@@ -1,8 +1,13 @@
 import { API, graphqlOperation } from 'aws-amplify';
 import { GraphQLResult } from '@aws-amplify/api';
 
-import { createUser } from '../graphql/mutations';
-import { CreateUserInput, CreateUserMutation } from '../API';
+import { createUser, deleteUser } from '../graphql/mutations';
+import {
+  CreateUserInput,
+  CreateUserMutation,
+  DeleteUserInput,
+  DeleteUserMutation,
+} from '../API';
 import { PromiseType } from '../utils/typeUtils';
 
 const UserService = {
@@ -10,6 +15,12 @@ const UserService = {
     return API.graphql(
       graphqlOperation(createUser, { input: input })
     ) as Promise<GraphQLResult<CreateUserMutation>>;
+  },
+
+  deleteUser: async (input: DeleteUserInput) => {
+    return API.graphql(graphqlOperation(deleteUser, { input })) as Promise<
+      GraphQLResult<DeleteUserMutation>
+    >;
   },
 };
 
