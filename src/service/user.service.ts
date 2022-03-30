@@ -26,6 +26,7 @@ const UserService = {
 
 export type UserServiceReturnType = {
   createUserRT: PromiseType<ReturnType<typeof UserService.createUser>>;
+  deleteUserRT: PromiseType<ReturnType<typeof UserService.deleteUser>>;
 };
 
 export default UserService;
