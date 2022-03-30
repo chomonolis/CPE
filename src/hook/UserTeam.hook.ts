@@ -17,11 +17,16 @@ const useUserTeam = () => {
     []
   );
 
+  const deleteUserTeam = useCallback(async (id: string) => {
+    const res = await UserTeamService.deleteUserTeam({ id });
+    return res.data?.deleteUserTeam;
+  }, []);
+
   const getUserTeam = useCallback(async (id: string) => {
     return await UserTeamService.getUserTeam(id);
   }, []);
 
-  return { createUserTeam, getUserTeam };
+  return { createUserTeam, deleteUserTeam, getUserTeam };
 };
 
 export type UseUserTeamReturnType = {
@@ -29,6 +34,10 @@ export type UseUserTeamReturnType = {
     UserTeamServiceReturnType['createUserTeamRT']['data'],
     undefined
   >['createUserTeam'];
+  deleteUserTeamRT: Exclude<
+    UserTeamServiceReturnType['deleteUserTeamRT']['data'],
+    undefined
+  >['deleteUserTeam'];
   getUserTeamRT: UserTeamServiceReturnType['getUserTeamRT'];
 };
 

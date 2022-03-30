@@ -11,7 +11,13 @@ const useUser = () => {
     },
     []
   );
-  return { createUser };
+
+  const deleteUser = useCallback(async (id: string) => {
+    const res = await UserService.deleteUser({ id });
+    return res.data?.deleteUser;
+  }, []);
+
+  return { createUser, deleteUser };
 };
 
 export type UseUserReturnType = {
@@ -19,6 +25,10 @@ export type UseUserReturnType = {
     UserServiceReturnType['createUserRT']['data'],
     undefined
   >['createUser'];
+  deleteUserRT: Exclude<
+    UserServiceReturnType['deleteUserRT']['data'],
+    undefined
+  >['deleteUser'];
 };
 
 export default useUser;
