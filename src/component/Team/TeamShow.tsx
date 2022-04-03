@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { List, ListItem } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
 import useTeam, { UseTeamReturnType } from '../../hook/Team.hook';
 import useUserTeam, { UseUserTeamReturnType } from '../../hook/UserTeam.hook';
@@ -52,7 +54,15 @@ const TeamShow = (props: Props) => {
       <List>
         {userTeams.map((userTeam, idx) => {
           return (
-            <ListItem key={idx} sx={{ border: 'solid' }}>
+            <ListItem
+              key={idx}
+              sx={{ border: 'solid' }}
+              secondaryAction={
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              }
+            >
               {userTeam?.user?.name}
             </ListItem>
           );
