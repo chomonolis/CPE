@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { List, ListItem } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
+import useUser from '../../hook/User.hook';
 import useTeam, { UseTeamReturnType } from '../../hook/Team.hook';
 import useUserTeam, { UseUserTeamReturnType } from '../../hook/UserTeam.hook';
 
@@ -10,8 +13,9 @@ type Props = {
 
 const TeamShow = (props: Props) => {
   const { teamId } = props;
+  const { deleteUser } = useUser();
   const { getTeam } = useTeam();
-  const { getUserTeam } = useUserTeam();
+  const { getUserTeam, deleteUserTeam } = useUserTeam();
   const [team, setTeam] = useState<UseTeamReturnType['getTeamRT']>();
   const [userTeams, setUserTeams] = useState<
     UseUserTeamReturnType['getUserTeamRT'][]
@@ -47,12 +51,31 @@ const TeamShow = (props: Props) => {
     })();
   }, [getUserTeam, team?.users?.items]);
 
+  const onClick = async (userTeamId?: string, userId?: string) => {
+    if (userId) {
+      await deleteUser(userId);
+    }
+    if (userTeamId) {
+      await deleteUserTeam(userTeamId);
+    }
+  };
+
   return (
     <>
       <List>
         {userTeams.map((userTeam, idx) => {
           return (
-            <ListItem key={idx} sx={{ border: 'solid' }}>
+            <ListItem
+              key={idx}
+              sx={{ border: 'solid' }}
+              secondaryAction={
+                <IconButton
+                  onClick={() => onClick(userTeam?.id, userTeam?.user?.id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              }
+            >
               {userTeam?.user?.name}
             </ListItem>
           );
